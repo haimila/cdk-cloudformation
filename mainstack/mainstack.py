@@ -35,6 +35,9 @@ class AppStack(cfn.NestedStack):
             instance_type=ec2.InstanceType("t2.micro"),
             machine_image=image,
             user_data=nginx,
+            vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType('PUBLIC')),
+            min_capacity=3,
+            max_capacity=6,
         )
 
         loadbalancer = elb.ApplicationLoadBalancer(
