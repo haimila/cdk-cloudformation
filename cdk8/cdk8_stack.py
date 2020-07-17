@@ -1,15 +1,16 @@
 from aws_cdk import (
     core,
     aws_ec2 as ec2,
+    aws_cloudformation as cfn,
 )
 
 
-class Cdk8Stack(core.Stack):
+class Cdk8Stack(cfn.NestedStack):
 
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        vpc = ec2.Vpc(
+        self.vpc = ec2.Vpc(
             self, "MitjaVPC",
             max_azs=3,
             cidr="10.0.0.0/16",
